@@ -8,6 +8,8 @@ import MealCustomizer from './components/MealCustomizer';
 import PlanSummary from './components/PlanSummary';
 import DailyTracker from './components/DailyTracker';
 import ProgressDashboard from './components/ProgressDashboard';
+import AIChatbot from './components/AIChatbot';
+import WorkoutPlanner from './components/WorkoutPlanner';
 import { generateDietPlans } from './utils/dietPlanGenerator';
 
 function App() {
@@ -17,7 +19,7 @@ function App() {
   const [dietPlans, setDietPlans] = useState([]);
   const [selectedPlan, setSelectedPlan] = useState(null);
   const [finalPlan, setFinalPlan] = useState(null);
-  const [activeTab, setActiveTab] = useState('diet'); // 'diet', 'tracker', or 'progress'
+  const [activeTab, setActiveTab] = useState('diet'); // 'diet', 'tracker', 'progress', or 'community'
 
   // Check for existing session on mount
   useEffect(() => {
@@ -79,6 +81,10 @@ function App() {
   const renderContent = () => {
     if (activeTab === 'tracker') {
       return <DailyTracker userProfile={userProfile} />;
+    }
+
+    if (activeTab === 'progress') {
+      return <ProgressDashboard userProfile={userProfile} />;
     }
 
     if (activeTab === 'progress') {
@@ -181,10 +187,28 @@ function App() {
             >
               📈 Progress
             </button>
+            <button
+              onClick={() => setActiveTab('workout')}
+              style={{
+                padding: '0.75rem 1.5rem',
+                borderRadius: '0.75rem',
+                border: 'none',
+                fontWeight: '600',
+                cursor: 'pointer',
+                background: activeTab === 'workout' ? 'linear-gradient(135deg, #6366f1, #a855f7)' : 'rgba(255, 255, 255, 0.2)',
+                color: 'white',
+                transition: 'all 0.3s'
+              }}
+            >
+              💪 Workout
+            </button>
           </div>
         )}
 
-        {renderContent()}
+        {activeTab === 'workout' ? (
+          <WorkoutPlanner userProfile={userProfile} />
+        ) : renderContent()}
+        <AIChatbot userProfile={userProfile} />
       </div>
     </>
   );

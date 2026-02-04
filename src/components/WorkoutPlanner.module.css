@@ -1,0 +1,178 @@
+.container {
+    padding: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.header h2 {
+    font-size: 2rem;
+    background: linear-gradient(135deg, #10b981, #3b82f6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem;
+}
+
+.regenerateBtn {
+    margin-top: 1rem;
+    background: transparent;
+    border: 1px solid #ddd;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    transition: all 0.2s;
+}
+
+.regenerateBtn:hover {
+    background: #f3f4f6;
+    color: var(--text-primary);
+}
+
+.weekTabs {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+}
+
+.dayTab {
+    padding: 0.75rem 1.25rem;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.dayTab:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.activeTab {
+    background: linear-gradient(135deg, #10b981, #3b82f6);
+    color: white;
+    border-color: transparent;
+    font-weight: 600;
+}
+
+.dayView {
+    background: white;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.3s ease-out;
+}
+
+.dayHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.dayHeader h3 {
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.focusBadge {
+    background: #ecfdf5;
+    color: #059669;
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+.exerciseList {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.exerciseCard {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: #f9fafb;
+    border-radius: 0.75rem;
+    transition: transform 0.2s;
+}
+
+.exerciseCard:hover {
+    transform: translateX(5px);
+    background: #f3f4f6;
+}
+
+.exerciseInfo h4 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.1rem;
+}
+
+.exerciseMeta {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.exerciseMeta span {
+    background: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    border: 1px solid #e5e7eb;
+}
+
+.replaceBtn {
+    background: white;
+    border: 1px solid #d1d5db;
+    color: var(--text-secondary);
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-size: 0.875rem;
+    transition: all 0.2s;
+}
+
+.replaceBtn:hover {
+    border-color: #3b82f6;
+    color: #3b82f6;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 640px) {
+    .exerciseCard {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .actions {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+    }
+}
