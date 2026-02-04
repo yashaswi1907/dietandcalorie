@@ -11,27 +11,27 @@
 
 .header h2 {
     font-size: 2rem;
-    background: linear-gradient(135deg, #10b981, #3b82f6);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: var(--text-on-primary);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin-bottom: 0.5rem;
 }
 
 .regenerateBtn {
     margin-top: 1rem;
-    background: transparent;
-    border: 1px solid #ddd;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     padding: 0.5rem 1rem;
     border-radius: 0.5rem;
     cursor: pointer;
     font-size: 0.875rem;
-    color: var(--text-secondary);
+    color: var(--text-on-primary);
     transition: all 0.2s;
+    backdrop-filter: blur(5px);
 }
 
 .regenerateBtn:hover {
-    background: #f3f4f6;
-    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.3);
+    color: var(--text-on-primary);
 }
 
 .weekTabs {
@@ -45,16 +45,19 @@
 
 .dayTab {
     padding: 0.75rem 1.25rem;
-    background: white;
-    border: 1px solid #e5e7eb;
+    padding: 0.75rem 1.25rem;
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.5);
     border-radius: 0.75rem;
     cursor: pointer;
     transition: all 0.2s;
+    backdrop-filter: blur(5px);
 }
 
 .dayTab:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    background: white;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
 .activeTab {
@@ -65,11 +68,13 @@
 }
 
 .dayView {
-    background: white;
+    background: var(--surface);
     border-radius: 1rem;
     padding: 2rem;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
     animation: fadeIn 0.3s ease-out;
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border);
 }
 
 .dayHeader {
@@ -106,14 +111,16 @@
     justify-content: space-between;
     align-items: center;
     padding: 1rem;
-    background: #f9fafb;
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 0.75rem;
-    transition: transform 0.2s;
+    transition: all 0.2s;
 }
 
 .exerciseCard:hover {
     transform: translateX(5px);
-    background: #f3f4f6;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
 .exerciseInfo h4 {
