@@ -61,17 +61,32 @@ export function generateDietPlans(userProfile) {
     // Generate 3-4 plans
     const selectedPlanTypes = availablePlans.slice(0, 4);
 
-    return selectedPlanTypes.map(planType => {
+    // DATA STRUCTURE: Stack
+    // Use a stack to process plan types (LIFO - Last In First Out processing)
+    const activeStack = [];
+    // Reverse the array before pushing so they come out in original order 
+    // (balanced first if we want to mimic original order, but stack reverses, so we push in reverse)
+    for (let i = selectedPlanTypes.length - 1; i >= 0; i--) {
+        activeStack.push(selectedPlanTypes[i]);
+    }
+
+    const generatedPlans = [];
+
+    while (activeStack.length > 0) {
+        const planType = activeStack.pop(); // Take top item from stack
+
         const macros = calculateMacros(targetCalories, planType.id);
         const meals = generateDailyMeals(targetCalories, planType.id, dietaryPreference, allergies);
 
-        return {
+        generatedPlans.push({
             ...planType,
             macros,
             meals,
             totalCalories: meals.reduce((sum, meal) => sum + meal.calories, 0)
-        };
-    });
+        });
+    }
+
+    return generatedPlans;
 }
 
 /**
@@ -96,6 +111,9 @@ function generateDailyMeals(targetCalories, planType, dietaryPreference, allergi
         dietary: dietaryPreference !== 'all' ? dietaryPreference : null,
         excludeAllergens: allergies || []
     };
+
+    // ALGORITHM: Greedy Choice
+    // We make the locally optimal choice at each step (meal slot) to try to satisfy the global calorie goal.
 
     // Get meals for each time slot
     let breakfast = selectMealClosestToCalories(
@@ -140,6 +158,8 @@ function generateDailyMeals(targetCalories, planType, dietaryPreference, allergi
 
 /**
  * Select a meal closest to target calories from available meals
+ * ALGORITHM: Greedy Approach
+ * Finds the single best option (closest calorie match) currently available.
  * @param {array} meals - Available meals
  * @param {number} targetCalories - Target calories for this meal
  * @param {object} filters - Dietary filters

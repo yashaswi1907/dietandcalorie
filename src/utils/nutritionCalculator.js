@@ -98,14 +98,29 @@ export function adjustPortion(meal, multiplier) {
  * @param {array} meals - Array of meal objects
  * @returns {object} Total daily nutrition
  */
+/**
+ * Calculate total nutrition for a day's meals
+ * @param {array} meals - Array of meal objects
+ * @returns {object} Total daily nutrition
+ */
 export function calculateDailyTotals(meals) {
-    return meals.reduce((totals, meal) => ({
-        calories: totals.calories + (meal.calories || 0),
-        protein: totals.protein + (meal.protein || 0),
-        carbs: totals.carbs + (meal.carbs || 0),
-        fats: totals.fats + (meal.fats || 0),
-        fiber: totals.fiber + (meal.fiber || 0)
-    }), { calories: 0, protein: 0, carbs: 0, fats: 0, fiber: 0 });
+    // DATA STRUCTURE: Queue
+    // Use a Queue to process meals (FIFO - First In First Out)
+    const processingQueue = [...meals]; // Enqueue all meals
+
+    const totals = { calories: 0, protein: 0, carbs: 0, fats: 0, fiber: 0 };
+
+    while (processingQueue.length > 0) {
+        const meal = processingQueue.shift(); // Dequeue processing
+
+        totals.calories += (meal.calories || 0);
+        totals.protein += (meal.protein || 0);
+        totals.carbs += (meal.carbs || 0);
+        totals.fats += (meal.fats || 0);
+        totals.fiber += (meal.fiber || 0);
+    }
+
+    return totals;
 }
 
 /**

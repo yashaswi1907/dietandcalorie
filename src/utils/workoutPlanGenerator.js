@@ -125,6 +125,23 @@ export function replaceExercise(currentExercise) {
 }
 
 function pick(array, count) {
+    // DATA STRUCTURE: Set
+    // Use a Set to ensure unique exercises are picked efficiently
+    const pickedSet = new Set();
+    const result = [];
+
+    // Shuffle copy of array
     const shuffled = [...array].sort(() => 0.5 - Math.random());
-    return shuffled.slice(0, count);
+
+    for (const item of shuffled) {
+        if (result.length >= count) break;
+
+        // Key for uniqueness (using name)
+        if (!pickedSet.has(item.name)) {
+            pickedSet.add(item.name);
+            result.push(item);
+        }
+    }
+
+    return result;
 }
