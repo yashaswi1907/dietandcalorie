@@ -67,59 +67,7 @@ function ProgressDashboard({ userProfile }) {
         setTimeout(() => setSaved(false), 3000);
     };
 
-    // Chart helpers
-    const renderChart = () => {
-        if (weightHistory.length < 2) return null;
 
-        const chartHeight = 200;
-        const chartWidth = 600;
-        const padding = 20;
-
-        const weights = weightHistory.map(d => d.weight);
-        const minWeight = Math.min(...weights) - 2;
-        const maxWeight = Math.max(...weights) + 2;
-
-        const dates = weightHistory.map(d => new Date(d.date));
-        const minDate = dates[0].getTime();
-        const maxDate = dates[dates.length - 1].getTime();
-        const timeRange = maxDate - minDate || 1; // Avoid division by zero
-
-        const points = weightHistory.map((d, i) => {
-            const date = new Date(d.date).getTime();
-            const x = padding + ((date - minDate) / timeRange) * (chartWidth - 2 * padding);
-            const y = chartHeight - padding - ((d.weight - minWeight) / (maxWeight - minWeight)) * (chartHeight - 2 * padding);
-            return `${x},${y}`;
-        }).join(' ');
-
-        return (
-            <svg viewBox={`0 0 ${chartWidth} ${chartHeight}`} className={styles.chart}>
-                {/* Background lines */}
-                <line x1={padding} y1={padding} x2={padding} y2={chartHeight - padding} stroke="#eee" strokeWidth="1" />
-                <line x1={padding} y1={chartHeight - padding} x2={chartWidth - padding} y2={chartHeight - padding} stroke="#eee" strokeWidth="1" />
-
-                {/* Data line */}
-                <polyline
-                    fill="none"
-                    stroke="var(--primary-color)"
-                    strokeWidth="3"
-                    points={points}
-                />
-
-                {/* Data points */}
-                {weightHistory.map((d, i) => {
-                    const date = new Date(d.date).getTime();
-                    const x = padding + ((date - minDate) / timeRange) * (chartWidth - 2 * padding);
-                    const y = chartHeight - padding - ((d.weight - minWeight) / (maxWeight - minWeight)) * (chartHeight - 2 * padding);
-                    return (
-                        <g key={i} className={styles.pointGroup}>
-                            <circle cx={x} cy={y} r="4" fill="white" stroke="var(--primary-color)" strokeWidth="2" />
-                            <title>{d.date}: {d.weight}kg</title>
-                        </g>
-                    );
-                })}
-            </svg>
-        );
-    };
 
     return (
         <div className={styles.dashboard}>
@@ -163,16 +111,7 @@ function ProgressDashboard({ userProfile }) {
                 {saved && <div className={styles.success}>Saved successfully! 🎉</div>}
             </div>
 
-            <div className={styles.chartSection}>
-                <h3>Your Progress Curve</h3>
-                {weightHistory.length > 1 ? (
-                    renderChart()
-                ) : (
-                    <div className={styles.emptyChart}>
-                        <p>Log your weight on at least 2 different days to see the chart!</p>
-                    </div>
-                )}
-            </div>
+
 
             <div className={styles.historyList}>
                 <h3>Recent Logs</h3>
